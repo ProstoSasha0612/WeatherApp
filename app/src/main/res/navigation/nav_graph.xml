@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreenFragment">
+
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.projectapp.weatherapp.view.mainscreen.MainScreenFragment"
+        android:label="MainScreenFragment" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_weekForecastFragment"
+            app:destination="@id/weekForecastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weekForecastFragment"
+        android:name="com.projectapp.weatherapp.view.weekforecastscreen.WeekForecastFragment"
+        android:label="WeekForecastFragment" />
+</navigation>
