@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.projectapp.weatherapp.composeui.MainScreen
 
 class MainScreenFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class MainScreenFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-
+                    MainScreen()
                 }
             }
         }

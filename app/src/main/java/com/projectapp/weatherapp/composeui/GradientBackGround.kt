@@ -21,7 +21,8 @@ fun BackgroundGradientSurface(content: @Composable () -> Unit) {
                 brush = Brush.linearGradient(
                     colors = listOf(GradientStartColor, GradientEndColor),
                     start = Offset(0f, 0f),
-                    tileMode = TileMode.Decal
+                    tileMode = TileMode.Decal,
+
                 ),
             ),
     ) {
