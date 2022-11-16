@@ -1,295 +1,152 @@
-package com.projectapp.weatherapp.domain.weather
-
 import androidx.annotation.DrawableRes
+import com.projectapp.wetherapp.R
 
-sealed class WeatherType(val id: Int, val description: String, iconUrl: String) {
-    object Thunderstorm200 : WeatherType(
-        200,
-        "thunderstorm with light rain",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+sealed class WeatherType(
+    val weatherDesc: String,
+    @DrawableRes val iconRes: Int
+) {
+    object ClearSky : WeatherType(
+        weatherDesc = "Clear sky",
+        iconRes = R.drawable.ic_sunny
     )
-    object Thunderstorm201 : WeatherType(
-        201,
-        "thunderstorm with rain",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object MainlyClear : WeatherType(
+        weatherDesc = "Mainly clear",
+        iconRes = R.drawable.ic_cloudy
     )
-    object Thunderstorm202 : WeatherType(
-        202,
-        "thunderstorm with heavy rain",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object PartlyCloudy : WeatherType(
+        weatherDesc = "Partly cloudy",
+        iconRes = R.drawable.ic_cloudy
     )
-    object Thunderstorm210 : WeatherType(
-        210,
-        "light thunderstorm",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object Overcast : WeatherType(
+        weatherDesc = "Overcast",
+        iconRes = R.drawable.ic_cloudy
     )
-    object Thunderstorm211 : WeatherType(
-        211,
-        "thunderstorm",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object Foggy : WeatherType(
+        weatherDesc = "Foggy",
+        iconRes = R.drawable.ic_very_cloudy
     )
-    object Thunderstorm212 : WeatherType(
-        212,
-        "heavy thunderstorm",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object DepositingRimeFog : WeatherType(
+        weatherDesc = "Depositing rime fog",
+        iconRes = R.drawable.ic_very_cloudy
     )
-    object Thunderstorm221 : WeatherType(
-        221,
-        "ragged thunderstorm",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object LightDrizzle : WeatherType(
+        weatherDesc = "Light drizzle",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Thunderstorm230 : WeatherType(
-        230,
-        "thunderstorm with light drizzle",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object ModerateDrizzle : WeatherType(
+        weatherDesc = "Moderate drizzle",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Thunderstorm231 : WeatherType(
-        231,
-        "thunderstorm with drizzle",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object DenseDrizzle : WeatherType(
+        weatherDesc = "Dense drizzle",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Thunderstorm232 : WeatherType(
-        232,
-        "thunderstorm with heavy drizzle",
-        "http://openweathermap.org/img/wn/11d@4x.png",
+    object LightFreezingDrizzle : WeatherType(
+        weatherDesc = "Slight freezing drizzle",
+        iconRes = R.drawable.ic_snowyrainy
     )
-    /*Drizzle*/
-    object Drizzle300 : WeatherType(
-        300,
-        "light intensity drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object DenseFreezingDrizzle : WeatherType(
+        weatherDesc = "Dense freezing drizzle",
+        iconRes = R.drawable.ic_snowyrainy
     )
-    object Drizzle301 : WeatherType(
-        301,
-        "drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object SlightRain : WeatherType(
+        weatherDesc = "Slight rain",
+        iconRes = R.drawable.ic_rainy
     )
-    object Drizzle302 : WeatherType(
-        302,
-        "heavy intensity drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object ModerateRain : WeatherType(
+        weatherDesc = "Rainy",
+        iconRes = R.drawable.ic_rainy
     )
-    object Drizzle310 : WeatherType(
-        310,
-        "light intensity drizzle rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object HeavyRain : WeatherType(
+        weatherDesc = "Heavy rain",
+        iconRes = R.drawable.ic_rainy
     )
-    object Drizzle311 : WeatherType(
-        311,
-        "drizzle rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object HeavyFreezingRain: WeatherType(
+        weatherDesc = "Heavy freezing rain",
+        iconRes = R.drawable.ic_snowyrainy
     )
-    object Drizzle312 : WeatherType(
-        312,
-        "heavy intensity drizzle rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object SlightSnowFall: WeatherType(
+        weatherDesc = "Slight snow fall",
+        iconRes = R.drawable.ic_snowy
     )
-    object Drizzle313 : WeatherType(
-        313,
-        "shower rain and drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object ModerateSnowFall: WeatherType(
+        weatherDesc = "Moderate snow fall",
+        iconRes = R.drawable.ic_heavysnow
     )
-    object Drizzle314 : WeatherType(
-        314,
-        "heavy shower rain and drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object HeavySnowFall: WeatherType(
+        weatherDesc = "Heavy snow fall",
+        iconRes = R.drawable.ic_heavysnow
     )
-    object Drizzle321 : WeatherType(
-        321,
-        "shower drizzle",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object SnowGrains: WeatherType(
+        weatherDesc = "Snow grains",
+        iconRes = R.drawable.ic_heavysnow
     )
-    /*Rain*/
-    object Rain500 : WeatherType(
-        500,
-        "light rain",
-        "http://openweathermap.org/img/wn/10d@4x.png",
+    object SlightRainShowers: WeatherType(
+        weatherDesc = "Slight rain showers",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Rain501 : WeatherType(
-        501,
-        "moderate rain",
-        "http://openweathermap.org/img/wn/10d@4x.png",
+    object ModerateRainShowers: WeatherType(
+        weatherDesc = "Moderate rain showers",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Rain502 : WeatherType(
-        502,
-        "heavy intensity rain",
-        "http://openweathermap.org/img/wn/10d@4x.png",
+    object ViolentRainShowers: WeatherType(
+        weatherDesc = "Violent rain showers",
+        iconRes = R.drawable.ic_rainshower
     )
-    object Rain503 : WeatherType(
-        503,
-        "very heavy rain",
-        "http://openweathermap.org/img/wn/10d@4x.png",
+    object SlightSnowShowers: WeatherType(
+        weatherDesc = "Light snow showers",
+        iconRes = R.drawable.ic_snowy
     )
-    object Rain504 : WeatherType(
-        504,
-        "extreme rain",
-        "http://openweathermap.org/img/wn/10d@4x.png",
+    object HeavySnowShowers: WeatherType(
+        weatherDesc = "Heavy snow showers",
+        iconRes = R.drawable.ic_snowy
     )
-    object Rain511 : WeatherType(
-        511,
-        "freezing rain",
-        "http://openweathermap.org/img/wn/13d@4x.png",
+    object ModerateThunderstorm: WeatherType(
+        weatherDesc = "Moderate thunderstorm",
+        iconRes = R.drawable.ic_thunder
     )
-    object Rain520 : WeatherType(
-        520,
-        "light intensity shower rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
+    object SlightHailThunderstorm: WeatherType(
+        weatherDesc = "Thunderstorm with slight hail",
+        iconRes = R.drawable.ic_rainythunder
     )
-    object Rain521 : WeatherType(
-        521,
-        "shower rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
-    )
-    object Rain522 : WeatherType(
-        522,
-        "light intensity shower rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
-    )
-    object Rain523 : WeatherType(
-        523,
-        "heavy intensity shower rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
-    )
-    object Rain531 : WeatherType(
-        531,
-        "ragged shower rain",
-        "http://openweathermap.org/img/wn/09d@4x.png",
-    )
-    /*Snow*/
-    object Snow600 : WeatherType(
-        600,
-        "light snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow601 : WeatherType(
-        601,
-        "Snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow602 : WeatherType(
-        602,
-        "Heavy snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow611 : WeatherType(
-        611,
-        "Sleet",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow612 : WeatherType(
-        612,
-        "Light shower sleet",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow613 : WeatherType(
-        613,
-        "Shower sleet",
-        "http://openweathermap.org/img/wn/13d@4x.png",
+    object HeavyHailThunderstorm: WeatherType(
+        weatherDesc = "Thunderstorm with heavy hail",
+        iconRes = R.drawable.ic_rainythunder
     )
 
-    object Snow615 : WeatherType(
-        615,
-        "Light rain and snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow616 : WeatherType(
-        616,
-        "Rain and snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow620 : WeatherType(
-        620,
-        "Light shower snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow621 : WeatherType(
-        621,
-        "Shower snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    object Snow622 : WeatherType(
-        622,
-        "Heavy shower snow",
-        "http://openweathermap.org/img/wn/13d@4x.png",
-    )
-    /*Atmosphere*/
-    object Mist701 : WeatherType(
-        701,
-        "mist",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Smoke711 : WeatherType(
-        711,
-        "Smoke",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Haze721 : WeatherType(
-        721,
-        "Haze",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Dust731 : WeatherType(
-        731,
-        "sand/ dust whirls",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Fog741 : WeatherType(
-        741,
-        "fog",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Sand751 : WeatherType(
-        751,
-        "sand",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Dust761 : WeatherType(
-        761,
-        "dust",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Ash762 : WeatherType(
-        762,
-        "volcanic ash",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Squall771 : WeatherType(
-        771,
-        "squalls",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    object Tornado781 : WeatherType(
-        781,
-        "tornado",
-        "http://openweathermap.org/img/wn/50d@4x.png",
-    )
-    /*Clear*/
-    object Clear800 : WeatherType(
-        800,
-        "clear sky",
-        "http://openweathermap.org/img/wn/01d@4x.png",
-    )
-    /*Clouds*/
-    object Clouds801 : WeatherType(
-        801,
-        "few clouds: 11-25%",
-        "http://openweathermap.org/img/wn/02d@4x.png",
-    )
-    object Clouds802 : WeatherType(
-        802,
-        "scattered clouds: 25-50%",
-        "http://openweathermap.org/img/wn/03d@4x.png",
-    )
-    object Clouds803 : WeatherType(
-        803,
-        "broken clouds: 51-84%",
-        "http://openweathermap.org/img/wn/04d@4x.png",
-    )
-    object Clouds804 : WeatherType(
-        804,
-        "overcast clouds: 85-100%",
-        "http://openweathermap.org/img/wn/04d@4x.png",
-    )
-
-
+    companion object {
+        fun fromWMO(code: Int): WeatherType {
+            return when(code) {
+                0 -> ClearSky
+                1 -> MainlyClear
+                2 -> PartlyCloudy
+                3 -> Overcast
+                45 -> Foggy
+                48 -> DepositingRimeFog
+                51 -> LightDrizzle
+                53 -> ModerateDrizzle
+                55 -> DenseDrizzle
+                56 -> LightFreezingDrizzle
+                57 -> DenseFreezingDrizzle
+                61 -> SlightRain
+                63 -> ModerateRain
+                65 -> HeavyRain
+                66 -> LightFreezingDrizzle
+                67 -> HeavyFreezingRain
+                71 -> SlightSnowFall
+                73 -> ModerateSnowFall
+                75 -> HeavySnowFall
+                77 -> SnowGrains
+                80 -> SlightRainShowers
+                81 -> ModerateRainShowers
+                82 -> ViolentRainShowers
+                85 -> SlightSnowShowers
+                86 -> HeavySnowShowers
+                95 -> ModerateThunderstorm
+                96 -> SlightHailThunderstorm
+                99 -> HeavyHailThunderstorm
+                else -> ClearSky
+            }
+        }
+    }
 }
