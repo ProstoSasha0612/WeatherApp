@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.view.weekforecastscreen
+package com.projectapp.weatherapp.presentation.view.weekforecastscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

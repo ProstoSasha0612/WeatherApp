@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.view.mainscreen
+package com.projectapp.weatherapp.presentation.view.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

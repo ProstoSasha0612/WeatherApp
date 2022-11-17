@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.composeui
+package com.projectapp.weatherapp.presentation.ui.composeelements
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column

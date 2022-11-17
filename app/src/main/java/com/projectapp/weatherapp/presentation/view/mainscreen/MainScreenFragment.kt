@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.view.weekforecastscreen
+package com.projectapp.weatherapp.presentation.view.mainscreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.projectapp.weatherapp.presentation.ui.composeelements.MainScreen
 
-class WeekForecastFragment : Fragment() {
+class MainScreenFragment : Fragment() {
 
-
-    private val viewModel: WeekForecastViewModel by lazy { ViewModelProvider(this)[WeekForecastViewModel::class.java] }
+    private val viewModel: MainScreenViewModel by lazy { ViewModelProvider(this)[MainScreenViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,13 +23,13 @@ class WeekForecastFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-
+                    MainScreen()
                 }
             }
         }
     }
 
     companion object {
-        fun newInstance() = WeekForecastFragment()
+        fun newInstance() = MainScreenFragment()
     }
 }

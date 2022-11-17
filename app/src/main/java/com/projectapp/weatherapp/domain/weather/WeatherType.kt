@@ -1,3 +1,5 @@
+package com.projectapp.weatherapp.domain.weather
+
 import androidx.annotation.DrawableRes
 import com.projectapp.wetherapp.R
 
