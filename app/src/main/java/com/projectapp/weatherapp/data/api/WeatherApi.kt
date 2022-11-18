@@ -7,8 +7,10 @@ interface WeatherApi {
 
     @GET("v1/forecast?&hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m,pressure_msl&timezone=auto")
     suspend fun getCurrentWeatherData(
-        @Query("latitude") lat: Double,
-        @Query("longitude") long: Double,
+        @Query("latitude")
+        lat: Double,
+        @Query("longitude")
+        long: Double,
     ): WeatherDto
 
 }

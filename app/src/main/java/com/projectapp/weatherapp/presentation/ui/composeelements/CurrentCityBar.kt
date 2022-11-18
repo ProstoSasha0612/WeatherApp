@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.composeui
+package com.projectapp.weatherapp.presentation.ui.composeelements
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -14,13 +14,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.projectapp.weatherapp.presentation.ui.composeelements.DEFAULT_PADDING
-import com.projectapp.weatherapp.ui.theme.GrayDefaultColor
-import com.projectapp.weatherapp.ui.theme.Shapes
+import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
+import com.projectapp.weatherapp.presentation.ui.theme.Shapes
 import com.projectapp.wetherapp.R
 
 @Composable
-fun CurrentCityBar(onClick: () -> Unit) {
+fun CurrentCityBar(cityName:String,onClick: () -> Unit) {
     Row(Modifier
         .padding(start = DEFAULT_PADDING.dp, end = DEFAULT_PADDING.dp, top = DEFAULT_PADDING.dp)
         .height(40.dp)
@@ -38,7 +37,7 @@ fun CurrentCityBar(onClick: () -> Unit) {
         )
         Row() {
             Text(
-                text = "Tbilisi",
+                text = cityName,
                 textAlign = TextAlign.Center,
                 color = GrayDefaultColor,
                 modifier = Modifier
@@ -53,6 +52,6 @@ fun CurrentCityBar(onClick: () -> Unit) {
 @Composable
 fun CurrentCityBarPreview() {
     MaterialTheme() {
-        CurrentCityBar(onClick = {})
+        CurrentCityBar("Tbilsi",onClick = {})
     }
 }

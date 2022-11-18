@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.ui.theme
+package com.projectapp.weatherapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -18,3 +18,5 @@ val StrongGrayColor = Color(0xff5c6071)
 val LightDarkCardColor = Color(0xff0a0f1b)
 val LightDarkParamCardColor = Color(0xff0f1324)
 val DeepBlueColor = Color(0xff0037fe)
+val PinkColor = Color(0xffff83b3)
+val HourForecastGradColor = Color(0xff0a0f1b)
