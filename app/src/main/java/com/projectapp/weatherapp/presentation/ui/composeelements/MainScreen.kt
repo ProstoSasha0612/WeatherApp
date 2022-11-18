@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.projectapp.weatherapp.domain.weather.WeatherData
 import com.projectapp.weatherapp.domain.weather.WeatherInfo
 import com.projectapp.weatherapp.domain.weather.WeatherType
-import com.projectapp.weatherapp.presentation.view.mainscreen.MainScreenViewModel
+import com.projectapp.weatherapp.presentation.view.mainscreen.MainViewModel
 import com.projectapp.weatherapp.presentation.view.state.WeatherState
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
 const val DEFAULT_PADDING = 16
 
 @Composable
-fun MainScreen(viewModel: MainScreenViewModel) {
+fun MainScreen(viewModel: MainViewModel) {
     val weatherState = viewModel.weatherState.collectAsState()
     BackgroundGradientSurface {
         when (weatherState.value) {

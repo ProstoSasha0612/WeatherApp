@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainScreenViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val repository: WeatherRepository,
     private val locationTracker: LocationTracker,
 ) : ViewModel() {
@@ -38,7 +38,6 @@ class MainScreenViewModel @Inject constructor(
                 _mutableWeatherState.value =
                     WeatherState.Error("Couldn't retrieve location. Make sure to grant permission and enable GPS.")
             }
-//            repository.getWeatherData(location.latitude,location.longitude)
         }
     }
 
