@@ -56,7 +56,7 @@ fun CurrentWeatherCard(
                     fontSize = 80.sp
                 )
             }
-            Spacer(modifier = modifier.height(32.dp))
+            Spacer(modifier = modifier.height(16.dp))
             Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
                 Text(
                     text = weatherData.weatherType.weatherDesc,
