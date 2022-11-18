@@ -19,7 +19,7 @@ import com.projectapp.weatherapp.presentation.ui.theme.Shapes
 import com.projectapp.wetherapp.R
 
 @Composable
-fun CurrentCityBar(onClick: () -> Unit) {
+fun CurrentCityBar(cityName:String,onClick: () -> Unit) {
     Row(Modifier
         .padding(start = DEFAULT_PADDING.dp, end = DEFAULT_PADDING.dp, top = DEFAULT_PADDING.dp)
         .height(40.dp)
@@ -37,7 +37,7 @@ fun CurrentCityBar(onClick: () -> Unit) {
         )
         Row() {
             Text(
-                text = "Tbilisi",
+                text = cityName,
                 textAlign = TextAlign.Center,
                 color = GrayDefaultColor,
                 modifier = Modifier
@@ -52,6 +52,6 @@ fun CurrentCityBar(onClick: () -> Unit) {
 @Composable
 fun CurrentCityBarPreview() {
     MaterialTheme() {
-        CurrentCityBar(onClick = {})
+        CurrentCityBar("Tbilsi",onClick = {})
     }
 }

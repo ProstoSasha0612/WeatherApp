@@ -8,7 +8,7 @@ import com.projectapp.weatherapp.domain.weather.WeatherInfo
 interface WeatherRepository {
     suspend fun getWeatherData(lat: Double, long: Double): Resource<WeatherInfo>
 
-    suspend fun getCityCoordinates(cityName: String): Location
+    suspend fun getCityCoordinates(cityName: String): Resource<Location>
 
-    suspend fun getCityByCoordinates(location: Location): String
+    suspend fun getCityByCoordinates(location: Location): Resource<String>
 }

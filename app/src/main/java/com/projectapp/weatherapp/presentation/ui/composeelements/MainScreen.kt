@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.projectapp.weatherapp.data.api.CityName
 import com.projectapp.weatherapp.domain.weather.WeatherData
 import com.projectapp.weatherapp.domain.weather.WeatherInfo
 import com.projectapp.weatherapp.domain.weather.WeatherType
@@ -21,11 +22,16 @@ const val DEFAULT_PADDING = 16
 @Composable
 fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
     val weatherState = viewModel.weatherState.collectAsState()
+    val cityName = viewModel.cityName.collectAsState()
     BackgroundGradientSurface {
         when (weatherState.value) {
             is WeatherState.Success -> {
                 val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                MainScreenSuccess(weatherInfo = weatherData, on7dayClick = on7dayClick)
+                MainScreenSuccess(
+                    weatherInfo = weatherData,
+                    cityName = cityName.value,
+                    on7dayClick = on7dayClick,
+                )
             }
             is WeatherState.Loading -> {
                 LoadingIndicator()
@@ -39,9 +45,9 @@ fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
 }
 
 @Composable
-fun MainScreenSuccess(weatherInfo: WeatherInfo, on7dayClick: () -> Unit) {
+fun MainScreenSuccess(weatherInfo: WeatherInfo, cityName: String, on7dayClick: () -> Unit) {
     Column() {
-        CurrentCityBar {
+        CurrentCityBar(cityName) {
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -89,6 +95,7 @@ fun MainScreenPreview() {
             weatherDataPerDay = mapOf(pair = Pair(0, List(24) { weatherData })),
             currentWeatherData = weatherData
         ),
+        cityName = "Tbilsi",
         on7dayClick = {}
     )
 }

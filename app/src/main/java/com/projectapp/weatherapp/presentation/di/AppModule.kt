@@ -16,6 +16,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -47,8 +48,14 @@ object AppModule {
         val contentType = "application/json".toMediaType()
         val json = Json { ignoreUnknownKeys = true }
 
+        val httpClient = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
+
         return Retrofit.Builder().baseUrl(CITY_API_BASE_URL)
+
             .addConverterFactory(json.asConverterFactory(contentType))
+            .client(httpClient)
             .build()
             .create()
     }

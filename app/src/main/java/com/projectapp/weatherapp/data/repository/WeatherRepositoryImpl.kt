@@ -2,6 +2,7 @@ package com.projectapp.weatherapp.data.repository
 
 import com.projectapp.weatherapp.data.api.CityApi
 import com.projectapp.weatherapp.data.api.WeatherApi
+import com.projectapp.weatherapp.data.api.mapToLocation
 import com.projectapp.weatherapp.data.mappers.toWeatherInfo
 import com.projectapp.weatherapp.domain.location.Location
 import com.projectapp.weatherapp.domain.repository.WeatherRepository
@@ -23,13 +24,21 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCityCoordinates(cityName: String): Location {
-        val cityInfo = cityApi.getCityCoordinates(cityName)[0]
-        return Location(cityInfo.lat, cityInfo.lon)
+    override suspend fun getCityCoordinates(cityName: String): Resource<Location> {
+        return try {
+            val cityInfo = cityApi.getCityCoordinates(cityName)[0]
+            Resource.Success(cityInfo.mapToLocation())
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "An unknown error occurred!")
+        }
     }
 
-    override suspend fun getCityByCoordinates(location: Location): String {
-        val cityName = cityApi.getCityByCoordinates(location.latitude, location.longitude)[0]
-        return cityName.name
+    override suspend fun getCityByCoordinates(location: Location): Resource<String> {
+        return try {
+            val name = cityApi.getCityByCoordinates(location.latitude, location.longitude)[0].name
+            Resource.Success(name)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "An unknown error occurred!")
+        }
     }
 }
