@@ -28,7 +28,8 @@ fun MainScreen(viewModel: MainScreenViewModel) {
                 LoadingIndicator()
             }
             is WeatherState.Error -> {
-                ErrorIndicator()
+                val message = (weatherState.value as WeatherState.Error).message
+                ErrorIndicator(message)
             }
         }
     }

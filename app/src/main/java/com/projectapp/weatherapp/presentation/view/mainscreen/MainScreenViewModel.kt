@@ -41,4 +41,8 @@ class MainScreenViewModel @Inject constructor(
 //            repository.getWeatherData(location.latitude,location.longitude)
         }
     }
+
+    fun loadWeatherInfo(cityName: String) {
+
+    }
 }

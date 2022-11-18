@@ -23,6 +23,7 @@ import com.projectapp.weatherapp.presentation.view.mainscreen.MainScreenViewMode
 import com.projectapp.weatherapp.presentation.view.state.WeatherState
 import com.projectapp.wetherapp.R
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun CurrentWeatherCard(
@@ -85,7 +86,7 @@ fun CurrentWeatherCardPreview() {
             WeatherInfo(
                 weatherDataPerDay = mapOf(),
                 currentWeatherData = WeatherData(
-                    LocalDateTime.parse("15:00"),
+                    LocalDateTime.parse("2022-07-01T00:00", DateTimeFormatter.ISO_DATE_TIME),
                     temperature = 18.0,
                     pressure = 90.0,
                     windSpeed = 15.0,

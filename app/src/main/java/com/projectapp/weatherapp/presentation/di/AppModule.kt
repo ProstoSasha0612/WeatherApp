@@ -27,12 +27,13 @@ object AppModule {
     fun provideWeatherApi(): WeatherApi {
 
         val contentType = "application/json".toMediaType()
+        val json = Json { ignoreUnknownKeys = true }
         val httpClient = OkHttpClient.Builder().build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(WEATHER_API_BASE_URL)
             .client(httpClient)
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
 
         return retrofit.create(WeatherApi::class.java)
