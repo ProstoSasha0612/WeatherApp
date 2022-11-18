@@ -25,7 +25,7 @@ fun MainScreen(viewModel: MainScreenViewModel) {
         when (weatherState.value) {
             is WeatherState.Success -> {
                 val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                MainScreenSuccess(weatherInfo = weatherData)
+                MainScreenSuccess(weatherInfo = weatherData,/*TODO*/{})
             }
             is WeatherState.Loading -> {
                 LoadingIndicator()
@@ -39,17 +39,14 @@ fun MainScreen(viewModel: MainScreenViewModel) {
 }
 
 @Composable
-fun MainScreenSuccess(weatherInfo: WeatherInfo) {
+fun MainScreenSuccess(weatherInfo: WeatherInfo, on7dayClick: () -> Unit) {
     Column() {
         CurrentCityBar {
-
         }
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        CurrentCityBar {
-
-        }
+        CurrentTimeBar(requireNotNull(weatherInfo.currentWeatherData?.time), onClick = on7dayClick)
 
         Spacer(modifier = Modifier.height(64.dp))
 
@@ -68,6 +65,7 @@ fun MainScreenSuccess(weatherInfo: WeatherInfo) {
             }
         }
 
+
     }
 }
 
@@ -83,9 +81,12 @@ fun MainScreenPreview() {
         humidity = 24,
         weatherType = WeatherType.fromWMO(1),
     )
-    MainScreenSuccess(weatherInfo = WeatherInfo(
-        weatherDataPerDay = mapOf(pair = Pair(0, List(24) { weatherData })),
-        currentWeatherData = weatherData
-    ))
+    MainScreenSuccess(
+        weatherInfo = WeatherInfo(
+            weatherDataPerDay = mapOf(pair = Pair(0, List(24) { weatherData })),
+            currentWeatherData = weatherData
+        ),
+        on7dayClick = {}
+    )
 }
 
