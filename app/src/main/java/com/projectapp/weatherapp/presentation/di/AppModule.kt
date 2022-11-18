@@ -6,6 +6,7 @@ import android.app.Application
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.projectapp.weatherapp.data.api.CityApi
 import com.projectapp.weatherapp.data.api.WeatherApi
 import dagger.Module
 import dagger.Provides
@@ -42,11 +43,24 @@ object AppModule {
 
     @Provides
     @AppScope
+    fun provideCityApi(): CityApi {
+        val contentType = "application/json".toMediaType()
+        val json = Json { ignoreUnknownKeys = true }
+
+        return Retrofit.Builder().baseUrl(CITY_API_BASE_URL)
+            .addConverterFactory(json.asConverterFactory(contentType))
+            .build()
+            .create()
+    }
+
+    @Provides
+    @AppScope
     fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
     }
 
     private const val WEATHER_API_BASE_URL = "https://api.open-meteo.com/"
+    private const val CITY_API_BASE_URL = "https://api.api-ninjas.com/"
 }
 
 annotation class AppScope
