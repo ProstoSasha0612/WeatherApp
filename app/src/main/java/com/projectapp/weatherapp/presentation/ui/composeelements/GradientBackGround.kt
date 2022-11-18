@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.composeui
+package com.projectapp.weatherapp.presentation.ui.composeelements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,8 +9,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.tooling.preview.Preview
-import com.projectapp.weatherapp.ui.theme.GradientEndColor
-import com.projectapp.weatherapp.ui.theme.GradientStartColor
+import com.projectapp.weatherapp.presentation.ui.theme.GradientEndColor
+import com.projectapp.weatherapp.presentation.ui.theme.GradientStartColor
 
 @Composable
 fun BackgroundGradientSurface(content: @Composable () -> Unit) {

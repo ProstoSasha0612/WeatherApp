@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.composeui
+package com.projectapp.weatherapp.presentation.ui.composeelements
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -14,9 +14,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.projectapp.weatherapp.presentation.ui.composeelements.DEFAULT_PADDING
-import com.projectapp.weatherapp.ui.theme.GrayDefaultColor
-import com.projectapp.weatherapp.ui.theme.Shapes
+import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
+import com.projectapp.weatherapp.presentation.ui.theme.Shapes
 import com.projectapp.wetherapp.R
 
 @Composable

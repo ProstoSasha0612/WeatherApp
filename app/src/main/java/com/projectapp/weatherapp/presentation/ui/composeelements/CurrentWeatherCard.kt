@@ -1,4 +1,4 @@
-package com.projectapp.weatherapp.composeui
+package com.projectapp.weatherapp.presentation.ui.composeelements
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,15 +8,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.projectapp.weatherapp.presentation.ui.composeelements.DEFAULT_PADDING
-import com.projectapp.weatherapp.presentation.ui.composeelements.WeatherParamCard
-import com.projectapp.weatherapp.ui.theme.LightDarkCardColor
-import com.projectapp.weatherapp.ui.theme.GrayDefaultColor
+import com.projectapp.weatherapp.presentation.ui.theme.LightDarkCardColor
+import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
 import com.projectapp.wetherapp.R
 
 @Composable
@@ -36,9 +35,9 @@ fun CurrentWeatherCard(modifier: Modifier = Modifier) {
             ) {
                 //TODO
                 Icon(
-                    painter = painterResource(id = R.drawable.cloudy),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_sunnycloudy),
                     contentDescription = "weather type icon",
-                    modifier = modifier.size(96.dp),
+                    modifier = modifier.size(106.dp),
                     tint = Color.Unspecified,
                 )
                 Text(
@@ -48,17 +47,20 @@ fun CurrentWeatherCard(modifier: Modifier = Modifier) {
                 )
             }
             Spacer(modifier = modifier.height(32.dp))
-            Row(modifier.fillMaxWidth().padding(bottom = 24.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                WeatherParamCard(parameterIconRes = R.drawable.rain,
-                    parameterName = "humidity",
+            Row(modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly) {
+                WeatherParamCard(parameterIconRes = R.drawable.ic_wind_parameter,
+                    parameterName = "Wind",
+                    value = "15 km/h"
+                )
+                WeatherParamCard(parameterIconRes = R.drawable.ic_humidity_parameter,
+                    parameterName = "Humidity",
                     value = "24%"
                 )
-                WeatherParamCard(parameterIconRes = R.drawable.rain,
-                    parameterName = "humidity",
-                    value = "24%"
-                )
-                WeatherParamCard(parameterIconRes = R.drawable.rain,
-                    parameterName = "humidity",
+                WeatherParamCard(parameterIconRes = R.drawable.ic_chance_of_rain_parameter,
+                    parameterName = "Chance of rain",
                     value = "24%"
                 )
             }

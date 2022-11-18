@@ -35,7 +35,7 @@ object AppModule {
             .addConverterFactory(Json.asConverterFactory(contentType))
             .build()
 
-        return retrofit.create()
+        return retrofit.create(WeatherApi::class.java)
 
     }
 
