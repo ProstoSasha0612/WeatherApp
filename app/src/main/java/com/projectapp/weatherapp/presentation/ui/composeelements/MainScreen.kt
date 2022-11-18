@@ -7,12 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.projectapp.weatherapp.domain.weather.WeatherData
 import com.projectapp.weatherapp.domain.weather.WeatherInfo
-import com.projectapp.weatherapp.domain.weather.WeatherType
 import com.projectapp.weatherapp.presentation.view.mainscreen.MainScreenViewModel
 import com.projectapp.weatherapp.presentation.view.state.WeatherState
-import java.time.LocalDateTime
 
 const val DEFAULT_PADDING = 16
 
@@ -22,7 +19,8 @@ fun MainScreen(viewModel: MainScreenViewModel) {
     BackgroundGradientSurface {
         when (weatherState.value) {
             is WeatherState.Success -> {
-                MainScreenSuccess(weatherState = weatherState.value)
+                val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
+                MainScreenSuccess(weatherInfo = weatherData)
             }
             is WeatherState.Loading -> {
                 LoadingIndicator()
@@ -36,7 +34,7 @@ fun MainScreen(viewModel: MainScreenViewModel) {
 }
 
 @Composable
-fun MainScreenSuccess(weatherState: WeatherState) {
+fun MainScreenSuccess(weatherInfo: WeatherInfo) {
     Column() {
         CurrentCityBar {
 
@@ -50,7 +48,9 @@ fun MainScreenSuccess(weatherState: WeatherState) {
 
         Spacer(modifier = Modifier.height(64.dp))
 
-        CurrentWeatherCard(weatherState)
+
+        CurrentWeatherCard(requireNotNull(weatherInfo.currentWeatherData))
+
     }
 }
 

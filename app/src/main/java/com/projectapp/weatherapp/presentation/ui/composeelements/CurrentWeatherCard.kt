@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun CurrentWeatherCard(
-    weatherState: WeatherState,
+    weatherData: WeatherData,
     backGroundColor: Color = LightDarkCardColor,
     modifier: Modifier = Modifier,
 ) {
@@ -45,15 +45,23 @@ fun CurrentWeatherCard(
                     .padding(top = 8.dp)
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_sunnycloudy),
+                    imageVector = ImageVector.vectorResource(id = weatherData.weatherType.iconRes),
                     contentDescription = "weather type icon",
                     modifier = modifier.size(106.dp),
                     tint = Color.Unspecified,
                 )
                 Text(
-                    text = stringResource(id = R.string.temperature_degree),
+                    text = "${weatherData.temperature}°",
                     color = GrayDefaultColor,
                     fontSize = 80.sp
+                )
+            }
+            Spacer(modifier = modifier.height(32.dp))
+            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+                Text(
+                    text = weatherData.weatherType.weatherDesc,
+                    color = GrayDefaultColor,
+                    fontSize = 32.sp,
                 )
             }
             Spacer(modifier = modifier.height(32.dp))
@@ -63,15 +71,15 @@ fun CurrentWeatherCard(
                 horizontalArrangement = Arrangement.SpaceEvenly) {
                 WeatherParamCard(parameterIconRes = R.drawable.ic_wind_parameter,
                     parameterName = "Wind",
-                    value = "15 km/h"
+                    value = "${weatherData.windSpeed} km/h"
                 )
                 WeatherParamCard(parameterIconRes = R.drawable.ic_humidity_parameter,
                     parameterName = "Humidity",
-                    value = "24%"
+                    value = "${weatherData.humidity}%"
                 )
                 WeatherParamCard(parameterIconRes = R.drawable.ic_pressure_param,
                     parameterName = "Pressure",
-                    value = "24 hpa"
+                    value = "${weatherData.pressure} hpa"
                 )
             }
         }
@@ -82,18 +90,13 @@ fun CurrentWeatherCard(
 @Composable
 fun CurrentWeatherCardPreview() {
     CurrentWeatherCard(
-        WeatherState.Success(
-            WeatherInfo(
-                weatherDataPerDay = mapOf(),
-                currentWeatherData = WeatherData(
-                    LocalDateTime.parse("2022-07-01T00:00", DateTimeFormatter.ISO_DATE_TIME),
-                    temperature = 18.0,
-                    pressure = 90.0,
-                    windSpeed = 15.0,
-                    humidity = 24,
-                    weatherType = WeatherType.fromWMO(1),
-                ),
-            ),
-        ),
+        WeatherData(
+            LocalDateTime.parse("2022-07-01T00:00", DateTimeFormatter.ISO_DATE_TIME),
+            temperature = 18.0,
+            pressure = 90.0,
+            windSpeed = 15.0,
+            humidity = 24,
+            weatherType = WeatherType.fromWMO(1),
+        )
     )
 }
