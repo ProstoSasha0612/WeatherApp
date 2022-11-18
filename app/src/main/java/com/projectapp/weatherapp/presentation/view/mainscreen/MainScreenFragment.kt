@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.projectapp.weatherapp.presentation.ui.composeelements.MainScreen
+import javax.inject.Inject
 
 class MainScreenFragment : Fragment() {
 
-    private val viewModel: MainScreenViewModel by lazy { ViewModelProvider(this)[MainScreenViewModel::class.java] }
+    @Inject
+    lateinit var viewModel: MainScreenViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +27,7 @@ class MainScreenFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    MainScreen()
+                    MainScreen(viewModel)
                 }
             }
         }

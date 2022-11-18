@@ -14,15 +14,25 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.projectapp.weatherapp.domain.weather.WeatherData
+import com.projectapp.weatherapp.domain.weather.WeatherInfo
+import com.projectapp.weatherapp.domain.weather.WeatherType
 import com.projectapp.weatherapp.presentation.ui.theme.LightDarkCardColor
 import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
+import com.projectapp.weatherapp.presentation.view.mainscreen.MainScreenViewModel
+import com.projectapp.weatherapp.presentation.view.state.WeatherState
 import com.projectapp.wetherapp.R
+import java.time.LocalDateTime
 
 @Composable
-fun CurrentWeatherCard(modifier: Modifier = Modifier) {
+fun CurrentWeatherCard(
+    weatherState: WeatherState,
+    backGroundColor: Color = LightDarkCardColor,
+    modifier: Modifier = Modifier,
+) {
     Card(
-        backgroundColor = LightDarkCardColor,
-        modifier = Modifier
+        backgroundColor = backGroundColor,
+        modifier = modifier
             .padding(DEFAULT_PADDING.dp),
         shape = RoundedCornerShape(24.dp)
     ) {
@@ -33,7 +43,6 @@ fun CurrentWeatherCard(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .padding(top = 8.dp)
             ) {
-                //TODO
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_sunnycloudy),
                     contentDescription = "weather type icon",
@@ -59,9 +68,9 @@ fun CurrentWeatherCard(modifier: Modifier = Modifier) {
                     parameterName = "Humidity",
                     value = "24%"
                 )
-                WeatherParamCard(parameterIconRes = R.drawable.ic_chance_of_rain_parameter,
-                    parameterName = "Chance of rain",
-                    value = "24%"
+                WeatherParamCard(parameterIconRes = R.drawable.ic_pressure_param,
+                    parameterName = "Pressure",
+                    value = "24 hpa"
                 )
             }
         }
@@ -71,5 +80,19 @@ fun CurrentWeatherCard(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun CurrentWeatherCardPreview() {
-    CurrentWeatherCard()
+    CurrentWeatherCard(
+        WeatherState.Success(
+            WeatherInfo(
+                weatherDataPerDay = mapOf(),
+                currentWeatherData = WeatherData(
+                    LocalDateTime.parse("15:00"),
+                    temperature = 18.0,
+                    pressure = 90.0,
+                    windSpeed = 15.0,
+                    humidity = 24,
+                    weatherType = WeatherType.fromWMO(1),
+                ),
+            ),
+        ),
+    )
 }
