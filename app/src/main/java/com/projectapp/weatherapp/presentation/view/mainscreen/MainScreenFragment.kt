@@ -10,7 +10,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.projectapp.weatherapp.presentation.ui.composeelements.MainScreen
+import com.projectapp.wetherapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,10 +29,17 @@ class MainScreenFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
-                    MainScreen(viewModel)
+                    MainScreen(viewModel, on7dayClick = { navigateToWeekForecastScreen() })
                 }
             }
         }
+    }
+
+    private fun navigateToWeekForecastScreen() {
+        val navController = findNavController()
+
+        Log.d("MYTAG","navController is =$navController")
+        navController.navigate(R.id.action_mainScreenFragment_to_weekForecastFragment)
     }
 
     companion object {

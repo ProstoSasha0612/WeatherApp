@@ -19,13 +19,13 @@ import java.time.format.DateTimeFormatter
 const val DEFAULT_PADDING = 16
 
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
+fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
     val weatherState = viewModel.weatherState.collectAsState()
     BackgroundGradientSurface {
         when (weatherState.value) {
             is WeatherState.Success -> {
                 val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                MainScreenSuccess(weatherInfo = weatherData,/*TODO*/{})
+                MainScreenSuccess(weatherInfo = weatherData, on7dayClick = on7dayClick)
             }
             is WeatherState.Loading -> {
                 LoadingIndicator()
@@ -46,7 +46,10 @@ fun MainScreenSuccess(weatherInfo: WeatherInfo, on7dayClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        CurrentTimeBar(requireNotNull(weatherInfo.currentWeatherData?.time), onClick = on7dayClick)
+        CurrentTimeBar(
+            requireNotNull(weatherInfo.currentWeatherData?.time),
+            onClick = { on7dayClick() },
+        )
 
         Spacer(modifier = Modifier.height(64.dp))
 

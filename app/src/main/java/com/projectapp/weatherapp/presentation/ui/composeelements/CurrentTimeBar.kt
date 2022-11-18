@@ -24,7 +24,11 @@ fun CurrentTimeBar(time: LocalDateTime, onClick: () -> Unit) {
 
     Column(Modifier
         .fillMaxWidth()
-        .padding(horizontal = 16.dp)) {
+        .padding(horizontal = 16.dp)
+        .clickable {
+            onClick()
+        },
+    ) {
         Box(Modifier.fillMaxWidth()) {
             Text(
                 text = "Today",
@@ -39,7 +43,7 @@ fun CurrentTimeBar(time: LocalDateTime, onClick: () -> Unit) {
                     .clickable {
                         onClick()
                     },
-                color = GrayDefaultColor,
+                        color = GrayDefaultColor,
                 fontSize = 24.sp,
             )
         }
@@ -60,7 +64,7 @@ fun TodayCardWithText(text: String) {
 @Preview
 @Composable
 fun CurrentTimeBarPreview() {
-    CurrentTimeBar(LocalDateTime.parse("2022-07-01T00:00")){
+    CurrentTimeBar(LocalDateTime.parse("2022-07-01T00:00")) {
 
     }
 }

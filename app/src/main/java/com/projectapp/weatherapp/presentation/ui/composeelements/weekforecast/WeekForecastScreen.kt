@@ -1,5 +1,6 @@
 package com.projectapp.weatherapp.presentation.ui.composeelements.weekforecast
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,13 +21,13 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun WeekForecastScreen(viewModel: MainViewModel) {
+fun WeekForecastScreen(viewModel: MainViewModel, onBackClick: () -> Unit) {
     val weatherState = viewModel.weatherState.collectAsState()
     BackgroundGradientSurface {
         when (weatherState.value) {
             is WeatherState.Success -> {
                 val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                MainScreenSuccess(weatherInfo = weatherData,/*TODO*/{})
+                WeekForecastScreenSuccess(weatherInfo = weatherData, onBackClick = onBackClick)
             }
             is WeatherState.Loading -> {
                 LoadingIndicator()
@@ -40,11 +41,16 @@ fun WeekForecastScreen(viewModel: MainViewModel) {
 }
 
 @Composable
-fun WeekForecastScreenSuccess(weatherInfo: WeatherInfo) {
+fun WeekForecastScreenSuccess(weatherInfo: WeatherInfo, onBackClick: () -> Unit) {
     Column(Modifier
         .fillMaxWidth()
         .padding(16.dp)) {
-        Text(text = "<- Back", color = GrayDefaultColor)
+        Text(
+            text = "<- Back", color = GrayDefaultColor,
+            modifier = Modifier.clickable {
+                onBackClick()
+            },
+        )
         Spacer(modifier = Modifier.height(32.dp))
         Text(text = "Next 7 days", color = GrayDefaultColor)
         Spacer(modifier = Modifier.height(16.dp))
@@ -79,5 +85,5 @@ fun WeekForecastScreenPreview() {
         ),
         currentWeatherData = weatherData
     )
-    WeekForecastScreenSuccess(weatherInfo)
+    WeekForecastScreenSuccess(weatherInfo, {})
 }
