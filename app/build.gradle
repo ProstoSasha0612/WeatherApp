@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'kotlinx-serialization'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -107,5 +108,7 @@ dependencies {
 
     //For DateTimeFormatter access in API < 26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.0'
+
+
 
 }

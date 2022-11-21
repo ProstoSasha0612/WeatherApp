@@ -8,12 +8,14 @@ import com.google.android.gms.location.LocationServices
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.projectapp.weatherapp.data.api.CityApi
 import com.projectapp.weatherapp.data.api.WeatherApi
+import com.projectapp.wetherapp.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,9 +50,18 @@ object AppModule {
         val contentType = "application/json".toMediaType()
         val json = Json { ignoreUnknownKeys = true }
 
+        val apiKeyInterceptor = Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("x-api-key", BuildConfig.NINJAS_API_KEY)
+                .build()
+            chain.proceed(request)
+        }
+
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(apiKeyInterceptor)
             .build()
+
 
         return Retrofit.Builder().baseUrl(CITY_API_BASE_URL)
 

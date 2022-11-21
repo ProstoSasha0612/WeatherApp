@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(
 
     private val _mutableWeatherState = MutableStateFlow<WeatherState>(WeatherState.Loading())
     val weatherState: StateFlow<WeatherState> get() = _mutableWeatherState
-    private val _mutableCityName = MutableStateFlow<String>("Loading")
+    private val _mutableCityName = MutableStateFlow<String>("...")
     val cityName: StateFlow<String> get() = _mutableCityName
 
     fun loadWeatherInfo() {
@@ -55,8 +55,8 @@ class MainViewModel @Inject constructor(
                         _mutableCityName.value = requireNotNull(result.data)
                     }
                     is Resource.Error -> {
-                        Log.d("MYTAG",result.message?:"NO data about error")
-                        _mutableCityName.value = result.message?:"Name loading error"
+                        Log.d("MYTAG", result.message ?: "NO data about error")
+                        _mutableCityName.value = result.message ?: "Name loading error"
                     }
                 }
             }
