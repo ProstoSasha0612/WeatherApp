@@ -22,23 +22,22 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun WeekForecastScreen(viewModel: MainViewModel, onBackClick: () -> Unit) {
-    val weatherState = viewModel.weatherState.collectAsState()
+    val weatherState = viewModel.state
     BackgroundGradientSurface {
-        when (weatherState.value) {
-            is WeatherState.Success -> {
-                val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                WeekForecastScreenSuccess(weatherInfo = weatherData, onBackClick = onBackClick)
-            }
-            is WeatherState.Loading -> {
-                LoadingIndicator()
-            }
-            is WeatherState.Error -> {
-                val message = (weatherState.value as WeatherState.Error).message
-                ErrorIndicator(message)
-            }
+        weatherState.weatherInfo?.let {
+            WeekForecastScreenSuccess(weatherInfo = weatherState.weatherInfo,
+                onBackClick = onBackClick)
+        }
+        weatherState.error?.let {
+            val message = weatherState.error
+            ErrorIndicator(message)
+        }
+        if (weatherState.isLoading == true) {
+            LoadingIndicator()
         }
     }
 }
+
 
 @Composable
 fun WeekForecastScreenSuccess(weatherInfo: WeatherInfo, onBackClick: () -> Unit) {

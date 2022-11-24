@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ){
-            viewModel.loadWeatherInfo()
+            viewModel.loadCurrentCityWeatherInfo()
         }
         permissionLauncher.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.projectapp.weatherapp.presentation.ui.composeelements.weekforecast.WeekForecastScreen
+import com.projectapp.weatherapp.presentation.ui.theme.WeatherAppTheme
 import com.projectapp.weatherapp.presentation.view.mainscreen.MainViewModel
 
 class WeekForecastFragment : Fragment() {
@@ -26,7 +27,7 @@ class WeekForecastFragment : Fragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             Log.d("MYTAG", "Week forecast fragment opened")
             setContent {
-                MaterialTheme {
+                WeatherAppTheme {
                     WeekForecastScreen(viewModel = viewModel, onBackClick = { onBackCLick() })
                 }
             }

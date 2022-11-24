@@ -21,25 +21,21 @@ const val DEFAULT_PADDING = 16
 
 @Composable
 fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
-    val weatherState = viewModel.weatherState.collectAsState()
-    val cityName = viewModel.cityName.collectAsState()
+    val weatherState = viewModel.state
     BackgroundGradientSurface {
-        when (weatherState.value) {
-            is WeatherState.Success -> {
-                val weatherData = (weatherState.value as WeatherState.Success).weatherInfo
-                MainScreenSuccess(
-                    weatherInfo = weatherData,
-                    cityName = cityName.value,
-                    on7dayClick = on7dayClick,
-                )
-            }
-            is WeatherState.Loading -> {
-                LoadingIndicator()
-            }
-            is WeatherState.Error -> {
-                val message = (weatherState.value as WeatherState.Error).message
-                ErrorIndicator(message)
-            }
+        weatherState.weatherInfo?.let {
+            MainScreenSuccess(
+                weatherInfo = weatherState.weatherInfo,
+                cityName = weatherState.cityName,
+                on7dayClick = on7dayClick,
+            )
+        }
+        weatherState.error?.let {
+            val message = weatherState.error
+            ErrorIndicator(message)
+        }
+        if (weatherState.isLoading == true) {
+            LoadingIndicator()
         }
     }
 }
