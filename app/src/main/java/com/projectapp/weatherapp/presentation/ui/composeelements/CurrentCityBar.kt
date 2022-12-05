@@ -1,5 +1,6 @@
 package com.projectapp.weatherapp.presentation.ui.composeelements
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,6 +20,11 @@ import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
 import com.projectapp.weatherapp.presentation.ui.theme.PinkColor
 import com.projectapp.weatherapp.presentation.ui.theme.Shapes
 import com.projectapp.wetherapp.R
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 //@Composable
 //fun CurrentCityBar(cityName: String, onClick: () -> Unit) {
@@ -62,25 +68,30 @@ import com.projectapp.wetherapp.R
 //    }
 //}
 
+@OptIn(FlowPreview::class)
 @Composable
-fun CurrentCityBar(cityName: String, onClick: () -> Unit) {
+fun CurrentCityBar(cityName: String, onCityNameChanged: (String) -> Unit) {
     val textFieldStyle = androidx.compose.ui.text.TextStyle(
         textAlign = TextAlign.Center,
         color = GrayDefaultColor,
     )
+    val text = remember { mutableStateOf(cityName) }
     OutlinedTextField(
-        value = cityName,
-        onValueChange = {},
+        value = text.value,
+        onValueChange = {
+            text.value = it
+            onCityNameChanged(it)
+        },
         modifier = Modifier
-            .padding(start = DEFAULT_PADDING.dp, end = DEFAULT_PADDING.dp, )
+            .padding(start = DEFAULT_PADDING.dp, end = DEFAULT_PADDING.dp)
 //        .height(40.dp)
             .fillMaxWidth()
-            .border(BorderStroke(1.dp, GrayDefaultColor), RoundedCornerShape(20))
-            .clickable { onClick() },
+        /*.border(BorderStroke(1.dp, GrayDefaultColor), RoundedCornerShape(20))*/,
         textStyle = textFieldStyle,
         maxLines = 1,
         leadingIcon = {
-            Icon(painter = painterResource(id = R.drawable.ic_baseline_location_on_24),
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_location_on_24),
                 contentDescription = "",
                 tint = GrayDefaultColor,
 //                modifier = Modifier.padding(start = 8.dp)
@@ -93,8 +104,28 @@ fun CurrentCityBar(cityName: String, onClick: () -> Unit) {
 
             disabledTrailingIconColor = PinkColor,
             unfocusedLabelColor = GrayDefaultColor
-        )
+        ),
+        singleLine = true,
+        shape = RoundedCornerShape(20),
+        trailingIcon = {
+            IconButton(onClick = {onCityNameChanged(text.value)}) {
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_location_on_24),
+                    contentDescription = null)
+            }
+        }
     )
+
+
+    LaunchedEffect(key1 = text, block = {
+        snapshotFlow { cityName }
+            .distinctUntilChanged() //TODO not required
+            .debounce(1000L)
+            .collect {
+                Log.d("MYTAG", "Launched effect collected flow")
+                onCityNameChanged(it)
+            }
+    })
+
 
 }
 
@@ -102,6 +133,6 @@ fun CurrentCityBar(cityName: String, onClick: () -> Unit) {
 @Composable
 fun CurrentCityBarPreview() {
     MaterialTheme() {
-        CurrentCityBar("Tbilsi", onClick = {})
+        CurrentCityBar("Tbilsi", onCityNameChanged = {})
     }
 }

@@ -44,7 +44,7 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val currentTime = LocalDateTime.now()
 
-    var currentWeatherData = weatherDataMap[0]?.find { weatherData: WeatherData ->
+    var currentWeatherData = weatherDataMap[0]?.first { weatherData: WeatherData ->
         val hour = when {
             currentTime.minute < 30 -> currentTime.hour
             //if 23:30 we need to get next day hour 00:00, and there are no data in weatherDataMap[0]
@@ -52,9 +52,9 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
             currentTime.hour == 23 -> null
             else -> currentTime.hour + 1
         }
-        currentTime.hour == hour
+        weatherData.time.hour == hour
     }
-    if (currentWeatherData == null) {
+    if (currentWeatherData?.time?.hour == null) {
         currentWeatherData = weatherDataMap[1]?.find { it.time.hour == 0 }
     }
 

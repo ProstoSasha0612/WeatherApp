@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,19 +21,22 @@ import java.time.format.DateTimeFormatter
 const val DEFAULT_PADDING = 16
 
 @Composable
-fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
-    val weatherState = viewModel.state
+fun MainScreen(
+    viewModel: MainViewModel,
+    on7dayClick: () -> Unit,
+) {
+    val weatherState by viewModel.state.collectAsState()
     BackgroundGradientSurface {
-        weatherState.weatherInfo?.let {
+        weatherState.weatherInfo?.let { weatherInfo ->
             MainScreenSuccess(
-                weatherInfo = weatherState.weatherInfo,
+                weatherInfo = weatherInfo,
                 cityName = weatherState.cityName,
                 on7dayClick = on7dayClick,
+                onCityNameChanged = { viewModel.loadSelectedCityWeatherInfo(it) }
             )
         }
-        weatherState.error?.let {
-            val message = weatherState.error
-            ErrorIndicator(message)
+        weatherState.error?.let { errorMessage ->
+            ErrorIndicator(errorMessage)
         }
         if (weatherState.isLoading == true) {
             LoadingIndicator()
@@ -41,7 +45,12 @@ fun MainScreen(viewModel: MainViewModel, on7dayClick: () -> Unit) {
 }
 
 @Composable
-fun MainScreenSuccess(weatherInfo: WeatherInfo, cityName: String, on7dayClick: () -> Unit) {
+fun MainScreenSuccess(
+    weatherInfo: WeatherInfo,
+    cityName: String,
+    on7dayClick: () -> Unit,
+    onCityNameChanged: (String) -> Unit,
+) {
     Column() {
         CurrentCityBar(cityName) {
         }
@@ -92,7 +101,8 @@ fun MainScreenPreview() {
             currentWeatherData = weatherData
         ),
         cityName = "Tbilsi",
-        on7dayClick = {}
+        on7dayClick = {},
+        onCityNameChanged = {}
     )
 }
 

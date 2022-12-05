@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,10 +23,10 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun WeekForecastScreen(viewModel: MainViewModel, onBackClick: () -> Unit) {
-    val weatherState = viewModel.state
+    val weatherState by viewModel.state.collectAsState()
     BackgroundGradientSurface {
-        weatherState.weatherInfo?.let {
-            WeekForecastScreenSuccess(weatherInfo = weatherState.weatherInfo,
+        weatherState.weatherInfo?.let { weatherInfo ->
+            WeekForecastScreenSuccess(weatherInfo = weatherInfo,
                 onBackClick = onBackClick)
         }
         weatherState.error?.let {
