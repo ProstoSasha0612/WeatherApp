@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.projectapp.weatherapp.presentation.view.event.MainEvent
 import com.projectapp.weatherapp.presentation.view.mainscreen.MainViewModel
 import com.projectapp.wetherapp.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ){
-            viewModel.loadCurrentCityWeatherInfo()
+//            viewModel.loadCurrentCityWeatherInfo()
+            viewModel.obtainEvent(MainEvent.LoadCurrentLocationWeather)
         }
         permissionLauncher.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,

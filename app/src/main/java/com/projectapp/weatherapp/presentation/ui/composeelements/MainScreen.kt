@@ -9,12 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.projectapp.weatherapp.data.api.CityName
 import com.projectapp.weatherapp.domain.weather.WeatherData
 import com.projectapp.weatherapp.domain.weather.WeatherInfo
 import com.projectapp.weatherapp.domain.weather.WeatherType
+import com.projectapp.weatherapp.presentation.view.event.MainEvent
 import com.projectapp.weatherapp.presentation.view.mainscreen.MainViewModel
-import com.projectapp.weatherapp.presentation.view.state.WeatherState
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -32,7 +31,7 @@ fun MainScreen(
                 weatherInfo = weatherInfo,
                 cityName = weatherState.cityName,
                 on7dayClick = on7dayClick,
-                onCityNameChanged = { viewModel.loadSelectedCityWeatherInfo(it) }
+                onCityNameChanged = { viewModel.obtainEvent(MainEvent.CityChanged(it)) }
             )
         }
         weatherState.error?.let { errorMessage ->

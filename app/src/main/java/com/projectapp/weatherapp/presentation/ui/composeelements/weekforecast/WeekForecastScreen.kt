@@ -3,7 +3,6 @@ package com.projectapp.weatherapp.presentation.ui.composeelements.weekforecast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,7 +16,6 @@ import com.projectapp.weatherapp.domain.weather.WeatherType
 import com.projectapp.weatherapp.presentation.ui.composeelements.*
 import com.projectapp.weatherapp.presentation.ui.theme.GrayDefaultColor
 import com.projectapp.weatherapp.presentation.view.mainscreen.MainViewModel
-import com.projectapp.weatherapp.presentation.view.state.WeatherState
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

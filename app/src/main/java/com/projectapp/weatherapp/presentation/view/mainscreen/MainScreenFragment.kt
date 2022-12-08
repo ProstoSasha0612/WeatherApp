@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.projectapp.weatherapp.presentation.ui.composeelements.MainScreen
 import com.projectapp.weatherapp.presentation.ui.theme.WeatherAppTheme
+import com.projectapp.weatherapp.presentation.view.event.MainEvent
 import com.projectapp.wetherapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +40,10 @@ class MainScreenFragment : Fragment() {
     private fun navigateToWeekForecastScreen() {
         val navController = findNavController()
 
-        Log.d("MYTAG","navController is =$navController")
-        navController.navigate(R.id.action_mainScreenFragment_to_weekForecastFragment)
+        Log.d("MYTAG", "navController is =$navController")
+        viewModel.obtainEvent(MainEvent.WeekForecastNavigate {
+            navController.navigate(R.id.action_mainScreenFragment_to_weekForecastFragment)
+        })
     }
 
     companion object {
